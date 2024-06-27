@@ -1,6 +1,6 @@
 Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
-Upstream-Name: restart-services-gtk3
-Source: https://github.com/droidian-berb/restart-services-gtk3
+Upstream-Name: droidian-restart-services-gtk3
+Source: https://github.com/droidian-berb/droidian-restart-services-gtk3
 
 Files: *
 Copyright (c) 2024, berbascum <berbascum@ticv.cat>
