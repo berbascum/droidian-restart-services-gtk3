@@ -1,4 +1,3 @@
-Name: droidian-restart-services-gtk3
-Version: 1.0.0.1
-Autor: berbascum <berbascum@ticv.cat>
+Version:  1.0.0.1
+Author:   berbascum <berbascum@ticv.cat>
 
