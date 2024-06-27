@@ -1,0 +1,7 @@
+#!/bin/bash
+
+set -e
+
+gtk-update-icon-cache /usr/share/icons/Adwaita/
+
+exit 0
