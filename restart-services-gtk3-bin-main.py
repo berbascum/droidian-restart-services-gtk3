@@ -10,44 +10,46 @@ class RestartServicesWindow(Gtk.Window):
         Gtk.Window.__init__(self, title="Restart Systemd Services GTK3")
         self.set_default_size(800, 600)
 
-        # Create main Paned 
-        main_paned = Gtk.Paned(orientation=Gtk.Orientation.VERTICAL)
-        self.add(main_paned)
+        ## Create main vbox
+        main_vbox = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
+        self.add(main_vbox)
 
-        # Create top box
-        top_box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
-        main_paned.pack1(top_box, resize=False, shrink=False)
+        ## Box1 top 10%
+        box_top = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
+        box_top.set_size_request(-1, 60) ## In pixels
+        main_vbox.pack_start(box_top, False, False, 0)
 
-        # Create sub Paned1 
-        sub_paned1 = Gtk.Paned(orientation=Gtk.Orientation.VERTICAL)
-        main_paned.pack2(sub_paned1, resize=True, shrink=False)
+        ## Box2 services 20%
+        box_services = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
+        box_services.set_size_request(-1, 120)  ## In pixels
+        main_vbox.pack_start(box_services, False, False, 0)
 
-        # Create buttons box
-        buttons_box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
-        sub_paned1.pack1(buttons_box, resize=False, shrink=False)
+        ## Box3 info 80%
+        box_info = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
+        box_info.set_size_request(-1, 450) ## In pixels
+        main_vbox.pack_start(box_info, False, False, 0)
+        box_info_label = Gtk.Label(label="Information:\n\nRestart the service that you want!")
+        box_info.pack_start(box_info_label, True, True, 0)
 
-        # Create buttons_box buttons
+        ## Box4 misc remaining
+        box_misc = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
+        main_vbox.pack_start(box_misc, True, True, 0)
+
+        ## Create restart services buttons
+        ## ModemManager
         button1 = Gtk.Button(label="Restart ModemManager Service")
         button1.connect("clicked", self.on_restart_clicked, "ModemManager")
-        buttons_box.pack_start(button1, True, True, 0)
-
+        box_services.pack_start(button1, True, True, 0)
+        ## Bluetooth
         button2 = Gtk.Button(label="Restart Bluetooth Service")
         button2.connect("clicked", self.on_restart_clicked, "bluetooth")
-        buttons_box.pack_start(button2, True, True, 0)
+        box_services.pack_start(button2, True, True, 0)
 
+        ## Create misc buttons
+        ## Exit
         exit_button = Gtk.Button(label="Exit")
         exit_button.connect("clicked", Gtk.main_quit)
-        buttons_box.pack_start(exit_button, True, True, 0)
-
-        # Create info box
-        info_box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
-        sub_paned1.pack2(info_box, resize=False, shrink=False)
-        info_box_label = Gtk.Label(label="Information:\n\nRestart the service that you want!")
-        info_box.pack_start(info_box_label, True, True, 0)
-
-        # Set Paneds heights
-        main_paned.set_position(int(0.05 * 600))
-        sub_paned1.set_position(int(0.2 * 600))
+        box_misc.pack_start(exit_button, True, True, 0)
 
     def on_restart_clicked(self, widget, service_name):
         command = f"pkexec systemctl restart {service_name}"
