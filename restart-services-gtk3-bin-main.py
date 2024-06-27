@@ -27,12 +27,12 @@ class RestartServicesWindow(Gtk.Window):
         sub_paned1.pack1(buttons_box, resize=False, shrink=False)
 
         # Create buttons_box buttons
-        button1 = Gtk.Button(label="Restart Service 1")
-        button1.connect("clicked", self.restart_service, "service1")
+        button1 = Gtk.Button(label="Restart ModemManager Service")
+        button1.connect("clicked", self.on_restart_clicked, "ModemManager")
         buttons_box.pack_start(button1, True, True, 0)
 
-        button2 = Gtk.Button(label="Restart Service 2")
-        button2.connect("clicked", self.restart_service, "service2")
+        button2 = Gtk.Button(label="Restart Bluetooth Service")
+        button2.connect("clicked", self.on_restart_clicked, "bluetooth")
         buttons_box.pack_start(button2, True, True, 0)
 
         exit_button = Gtk.Button(label="Exit")
@@ -42,15 +42,20 @@ class RestartServicesWindow(Gtk.Window):
         # Create info box
         info_box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
         sub_paned1.pack2(info_box, resize=False, shrink=False)
-        info_box_label = Gtk.Label(label="Information:\n\nRestart the service that woy want!")
+        info_box_label = Gtk.Label(label="Information:\n\nRestart the service that you want!")
         info_box.pack_start(info_box_label, True, True, 0)
 
         # Set Paneds heights
         main_paned.set_position(int(0.05 * 600))
         sub_paned1.set_position(int(0.2 * 600))
 
-    def restart_service(self, widget, service_name):
-        subprocess.run(["sudo", "systemctl", "restart", service_name])
+    def on_restart_clicked(self, widget, service_name):
+        command = f"pkexec systemctl restart {service_name}"
+        try:
+            result = subprocess.run(command, shell=True, check=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+            print(f"Service '{service_name}' restarted successfully.")
+        except subprocess.CalledProcessError as e:
+            print(f"Error restarting service '{service_name}': {e.stderr.decode()}")
 
 win = RestartServicesWindow()
 win.connect("destroy", Gtk.main_quit)
