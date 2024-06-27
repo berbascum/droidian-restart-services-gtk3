@@ -42,6 +42,8 @@ class RestartServicesWindow(Gtk.Window):
         # Create info box
         info_box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
         sub_paned1.pack2(info_box, resize=False, shrink=False)
+        info_box_label = Gtk.Label(label="Information:\n\nRestart the service that woy want!")
+        info_box.pack_start(info_box_label, True, True, 0)
 
         # Set Paneds heights
         main_paned.set_position(int(0.05 * 600))
