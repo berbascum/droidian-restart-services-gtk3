@@ -4,6 +4,32 @@ import gi
 gi.require_version('Gtk', '3.0')
 from gi.repository import Gtk
 import subprocess
+import os
+
+class AboutDialog(Gtk.Dialog):
+    def __init__(self, parent):
+        Gtk.Dialog.__init__(self, "About", parent, 0)
+        self.set_default_size(300, 200)
+
+        box = self.get_content_area()
+
+        # Determinar el path absolut del fitxer about.txt
+        if os.path.exists("/usr/local/share/droidian-restart-services-gtk3/about.txt"):
+            about_file_path = "/usr/local/share/droidian-restart-services-gtk3/about.txt"
+        else:
+            about_file_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "about.txt")
+
+        # Llegir la informació de l'arxiu
+        try:
+            with open(about_file_path, "r") as f:
+                about_text = f.read()
+        except FileNotFoundError:
+            about_text = "Informació no disponible."
+
+        label = Gtk.Label(label=about_text)
+        box.add(label)
+
+        self.show_all()
 
 class RestartServicesWindow(Gtk.Window):
     def __init__(self):
@@ -46,6 +72,10 @@ class RestartServicesWindow(Gtk.Window):
         box_services.pack_start(button2, True, True, 0)
 
         ## Create misc buttons
+        ## About
+        button_about = Gtk.Button(label="About")
+        button_about.connect("clicked", self.on_about_clicked)
+        box_misc.pack_start(button_about, True, True, 0)
         ## Exit
         exit_button = Gtk.Button(label="Exit")
         exit_button.connect("clicked", Gtk.main_quit)
@@ -58,6 +88,12 @@ class RestartServicesWindow(Gtk.Window):
             print(f"Service '{service_name}' restarted successfully.")
         except subprocess.CalledProcessError as e:
             print(f"Error restarting service '{service_name}': {e.stderr.decode()}")
+
+
+    def on_about_clicked(self, widget):
+        about_dialog = AboutDialog(self)
+        about_dialog.run()
+        about_dialog.destroy()
 
 win = RestartServicesWindow()
 win.connect("destroy", Gtk.main_quit)
