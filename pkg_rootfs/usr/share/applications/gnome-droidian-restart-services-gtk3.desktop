@@ -1,0 +1,11 @@
+[Desktop Entry]
+Version=1.0
+Name=RestartServices
+Comment=GTK3 application in python to restart systemd services
+Exec=/usr/bin/droidian-restart-services-gtk3
+Icon=droidian-restart-services-gtk3_48x48
+Terminal=false
+Type=Application
+Categories=Utility;
+Keywords=droidian,restart;services;systemd;GTK;
+
