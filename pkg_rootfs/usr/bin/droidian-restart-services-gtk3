@@ -1,5 +1,9 @@
 #!/usr/bin/env python3
 
+#[HEADER_SECTION]
+#[HEADER_END]
+
+
 import gi
 gi.require_version('Gtk', '3.0')
 from gi.repository import Gtk, GLib
@@ -47,8 +51,8 @@ class AboutDialog(Gtk.Dialog):
         self.get_content_area().add(label_about_info)
         #
         ## Load about info
-        about_file_path = "/usr/local/share/droidian-restart-services-gtk3/about.txt"
-        about_text = "Information not available."
+        about_file_path = "/usr/share/droidian-restart-services-gtk3/about.txt"
+        formatted_text = "Information not available."
         if os.path.exists(about_file_path):
             with open(about_file_path, "r") as f:
                 lines = f.readlines()
@@ -97,14 +101,18 @@ class RestartServicesWindow(Gtk.Window):
         main_vbox.pack_start(box_misc, True, True, 0)
         #
         ## Create restart services buttons
-        ## ModemManager
-        button1 = Gtk.Button(label="Restart ModemManager Service")
-        button1.connect("clicked", self.on_restart_clicked, "ModemManager")
+        ## MetworkManager
+        button1 = Gtk.Button(label="Restart NetworkManager Service")
+        button1.connect("clicked", self.on_restart_clicked, "NetworkManager")
         box_services.pack_start(button1, True, True, 0)
-        ## Bluetooth
-        button2 = Gtk.Button(label="Restart Bluetooth Service")
-        button2.connect("clicked", self.on_restart_clicked, "bluetooth")
+        ## ModemManager
+        button2 = Gtk.Button(label="Restart ModemManager Service")
+        button2.connect("clicked", self.on_restart_clicked, "ModemManager")
         box_services.pack_start(button2, True, True, 0)
+        ## Bluetooth
+        button3 = Gtk.Button(label="Restart Bluetooth Service")
+        button3.connect("clicked", self.on_restart_clicked, "bluetooth")
+        box_services.pack_start(button3, True, True, 0)
         #
         ## Create misc buttons
         ## About
