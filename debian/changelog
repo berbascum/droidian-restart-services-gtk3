@@ -1,6 +1,13 @@
-droidian-restart-services-gtk3 (0.0.1+git20240714141413.52da388.testing) testing; urgency=medium
+droidian-restart-services-gtk3 (0.0.2+git20240714153432.7d34771.testing) testing; urgency=medium
 
   [berbascum]
+  * (7d34771) Update README.md with installation steps 
+  * (c62de56) Update pkg_rootfs files 
+  * (0f92f63) Update about.txt: version string 
+  * (c92b4ae) Update .gitignore 
+  * (62b8501) Fix: About dialog not showing if about.txt not exist 
+  * (7979f4d) New: Add NetworkManager.service to the service restart list 
+  * (d4e0912) Build release: pre-configs before building new version 0.0.1-testing 
   * (52da388) Fix packaging: Move about.txt to /usr/share due to packaging problem 
   * (a95d550) Add .gitignore 
   * (aa99e90) Add HEADER section at the main bin top, required for internal use 
@@ -15,4 +22,4 @@ droidian-restart-services-gtk3 (0.0.1+git20240714141413.52da388.testing) testing
   * (a7114b3) Update: ask for sudo password implemented and working 
   * (dfeb847) Add a label to the info_box 
 
- -- berbascum <berbascum@ticv.cat>  Sun, 14 Jul 2024 14:14:13 +0200
+ -- berbascum <berbascum@ticv.cat>  Sun, 14 Jul 2024 15:34:32 +0200
