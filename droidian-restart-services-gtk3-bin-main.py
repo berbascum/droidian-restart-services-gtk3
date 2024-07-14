@@ -52,7 +52,7 @@ class AboutDialog(Gtk.Dialog):
         #
         ## Load about info
         about_file_path = "/usr/share/droidian-restart-services-gtk3/about.txt"
-        about_text = "Information not available."
+        formatted_text = "Information not available."
         if os.path.exists(about_file_path):
             with open(about_file_path, "r") as f:
                 lines = f.readlines()
