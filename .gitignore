@@ -1,0 +1,6 @@
+debian/.debhelper/
+debian/debhelper-build-stamp
+debian/droidian-restart-services-gtk3.postinst.debhelper
+debian/droidian-restart-services-gtk3.postrm.debhelper
+debian/droidian-restart-services-gtk3/
+
