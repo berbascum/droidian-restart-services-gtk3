@@ -101,14 +101,18 @@ class RestartServicesWindow(Gtk.Window):
         main_vbox.pack_start(box_misc, True, True, 0)
         #
         ## Create restart services buttons
-        ## ModemManager
-        button1 = Gtk.Button(label="Restart ModemManager Service")
-        button1.connect("clicked", self.on_restart_clicked, "ModemManager")
+        ## MetworkManager
+        button1 = Gtk.Button(label="Restart NetworkManager Service")
+        button1.connect("clicked", self.on_restart_clicked, "NetworkManager")
         box_services.pack_start(button1, True, True, 0)
-        ## Bluetooth
-        button2 = Gtk.Button(label="Restart Bluetooth Service")
-        button2.connect("clicked", self.on_restart_clicked, "bluetooth")
+        ## ModemManager
+        button2 = Gtk.Button(label="Restart ModemManager Service")
+        button2.connect("clicked", self.on_restart_clicked, "ModemManager")
         box_services.pack_start(button2, True, True, 0)
+        ## Bluetooth
+        button3 = Gtk.Button(label="Restart Bluetooth Service")
+        button3.connect("clicked", self.on_restart_clicked, "bluetooth")
+        box_services.pack_start(button3, True, True, 0)
         #
         ## Create misc buttons
         ## About
