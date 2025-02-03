@@ -110,15 +110,15 @@ class RestartServicesWindow(Gtk.Window):
         box_services.pack_start(label_net_dev_services, True, True, 5)
         ## ofono
         button_ofono = Gtk.Button(label="Restart ofono Service")
-        button_ofono.connect("clicked", self.on_restart_clicked, "ofono")
+        button_ofono.connect("clicked", self.on_restart_clicked, "ofono", False)
         box_services.pack_start(button_ofono, True, True, 0)
         ## ModemManager
         button_MM = Gtk.Button(label="Restart ModemManager Service")
-        button_MM.connect("clicked", self.on_restart_clicked, "ModemManager")
+        button_MM.connect("clicked", self.on_restart_clicked, "ModemManager", False)
         box_services.pack_start(button_MM, True, True, 0)
         ## MetworkManager
         button_NM = Gtk.Button(label="Restart NetworkManager Service")
-        button_NM.connect("clicked", self.on_restart_clicked, "NetworkManager")
+        button_NM.connect("clicked", self.on_restart_clicked, "NetworkManager", False)
         box_services.pack_start(button_NM, True, True, 0)
         # Section Multiple net dev services
         box_services.pack_start(separator, False, True, 10)
@@ -126,17 +126,26 @@ class RestartServicesWindow(Gtk.Window):
         box_services.pack_start(label_net_dev_multi_services, True, True, 5)
         ## ofono+ModemManager
         button_ofono_MM = Gtk.Button(label="Restart ofono and ModemManager Services")
-        button_ofono_MM.connect("clicked", lambda w: threading.Thread(target=self.restart_services, args=("ofono", "ModemManager")).start())
+        button_ofono_MM.connect("clicked", lambda w: threading.Thread(target=self.restart_services, args=("ofono", "ModemManager", False)).start())
         box_services.pack_start(button_ofono_MM, True, True, 0)
 
-        # Section Network services
+        # Section VPN services
+        #separator = Gtk.Separator(orientation=Gtk.Orientation.HORIZONTAL)
+        box_services.pack_start(separator, False, True, 10)
+        label_vpn_services = Gtk.Label(label="VPN services")
+        box_services.pack_start(label_vpn_services, True, True, 10)
+        ## ProtonVPN
+        button_protonvpn = Gtk.Button(label="Restart ProtonVPN Service")
+        button_protonvpn.connect("clicked", self.on_restart_clicked, "protonvpn-phosh-monitor", True)
+        box_services.pack_start(button_protonvpn, True, True, 0)
+        # Section Other services
         #separator = Gtk.Separator(orientation=Gtk.Orientation.HORIZONTAL)
         box_services.pack_start(separator, False, True, 5)
         label_other_services = Gtk.Label(label="Other services")
         box_services.pack_start(label_other_services, True, True, 5)
         ## Bluetooth
         button_bluetooth = Gtk.Button(label="Restart Bluetooth Service")
-        button_bluetooth.connect("clicked", self.on_restart_clicked, "bluetooth")
+        button_bluetooth.connect("clicked", self.on_restart_clicked, "bluetooth", False)
         box_services.pack_start(button_bluetooth, True, True, 0)
         #
         ## Create misc buttons
@@ -150,8 +159,10 @@ class RestartServicesWindow(Gtk.Window):
         exit_button.connect("clicked", Gtk.main_quit)
         box_misc.pack_start(exit_button, True, True, 0)
 
-    def on_restart_clicked(self, widget, service_name):
+    def on_restart_clicked(self, widget, service_name, user_service):
         command = f"pkexec systemctl restart {service_name}"
+        if user_service:
+            command = f"systemctl --user restart {service_name}"
         try:
             result = subprocess.run(command, shell=True, check=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
             print(f"Service '{service_name}' restarted successfully.")
@@ -159,10 +170,10 @@ class RestartServicesWindow(Gtk.Window):
             print(f"Error restarting service '{service_name}': {e.stderr.decode()}")
 
 
-    def restart_services(self, service1, service2):
-        self.on_restart_clicked(None, service1)
+    def restart_services(self, service1, service2, user_service):
+        self.on_restart_clicked(None, service1, user_service)
         time.sleep(10)  # Espera 10 segons
-        self.on_restart_clicked(None, service2)
+        self.on_restart_clicked(None, service2, user_service)
 
     def on_about_clicked(self, widget):
         about_dialog = AboutDialog(self)
