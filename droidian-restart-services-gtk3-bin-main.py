@@ -104,25 +104,25 @@ class RestartServicesWindow(Gtk.Window):
         #
         ## Create restart services buttons
         ## ofono
-        button1 = Gtk.Button(label="Restart ofono Service")
-        button1.connect("clicked", self.on_restart_clicked, "ofono")
-        box_services.pack_start(button1, True, True, 0)
+        button_ofono = Gtk.Button(label="Restart ofono Service")
+        button_ofono.connect("clicked", self.on_restart_clicked, "ofono")
+        box_services.pack_start(button_ofono, True, True, 0)
         ## ModemManager
-        button2 = Gtk.Button(label="Restart ModemManager Service")
-        button2.connect("clicked", self.on_restart_clicked, "ModemManager")
-        box_services.pack_start(button2, True, True, 0)
+        button_MM = Gtk.Button(label="Restart ModemManager Service")
+        button_MM.connect("clicked", self.on_restart_clicked, "ModemManager")
+        box_services.pack_start(button_MM, True, True, 0)
         ## MetworkManager
-        button3 = Gtk.Button(label="Restart NetworkManager Service")
-        button3.connect("clicked", self.on_restart_clicked, "NetworkManager")
-        box_services.pack_start(button3, True, True, 0)
+        button_NM = Gtk.Button(label="Restart NetworkManager Service")
+        button_NM.connect("clicked", self.on_restart_clicked, "NetworkManager")
+        box_services.pack_start(button_NM, True, True, 0)
         ## Bluetooth
-        button4 = Gtk.Button(label="Restart Bluetooth Service")
-        button4.connect("clicked", self.on_restart_clicked, "bluetooth")
-        box_services.pack_start(button4, True, True, 0)
+        button_bluetooth = Gtk.Button(label="Restart Bluetooth Service")
+        button_bluetooth.connect("clicked", self.on_restart_clicked, "bluetooth")
+        box_services.pack_start(button_bluetooth, True, True, 0)
         ## ofono+ModemManager
-        button5 = Gtk.Button(label="Restart ofono and ModemManager Services")
-        button5.connect("clicked", lambda w: threading.Thread(target=self.restart_services, args=("ofono", "ModemManager")).start())
-        box_services.pack_start(button5, True, True, 0)
+        button_ofono_MM = Gtk.Button(label="Restart ofono and ModemManager Services")
+        button_ofono_MM.connect("clicked", lambda w: threading.Thread(target=self.restart_services, args=("ofono", "ModemManager")).start())
+        box_services.pack_start(button_ofono_MM, True, True, 0)
         #
         ## Create misc buttons
         ## About
