@@ -9,6 +9,8 @@ gi.require_version('Gtk', '3.0')
 from gi.repository import Gtk, GLib
 import subprocess
 import os
+import time
+import threading
 
 class AboutDialog(Gtk.Dialog):
     def __init__(self, parent):
@@ -101,18 +103,26 @@ class RestartServicesWindow(Gtk.Window):
         main_vbox.pack_start(box_misc, True, True, 0)
         #
         ## Create restart services buttons
-        ## MetworkManager
-        button1 = Gtk.Button(label="Restart NetworkManager Service")
-        button1.connect("clicked", self.on_restart_clicked, "NetworkManager")
+        ## ofono
+        button1 = Gtk.Button(label="Restart ofono Service")
+        button1.connect("clicked", self.on_restart_clicked, "ofono")
         box_services.pack_start(button1, True, True, 0)
         ## ModemManager
         button2 = Gtk.Button(label="Restart ModemManager Service")
         button2.connect("clicked", self.on_restart_clicked, "ModemManager")
         box_services.pack_start(button2, True, True, 0)
-        ## Bluetooth
-        button3 = Gtk.Button(label="Restart Bluetooth Service")
-        button3.connect("clicked", self.on_restart_clicked, "bluetooth")
+        ## MetworkManager
+        button3 = Gtk.Button(label="Restart NetworkManager Service")
+        button3.connect("clicked", self.on_restart_clicked, "NetworkManager")
         box_services.pack_start(button3, True, True, 0)
+        ## Bluetooth
+        button4 = Gtk.Button(label="Restart Bluetooth Service")
+        button4.connect("clicked", self.on_restart_clicked, "bluetooth")
+        box_services.pack_start(button4, True, True, 0)
+        ## ofono+ModemManager
+        button5 = Gtk.Button(label="Restart ofono and ModemManager Services")
+        button5.connect("clicked", lambda w: threading.Thread(target=self.restart_services, args=("ofono", "ModemManager")).start())
+        box_services.pack_start(button5, True, True, 0)
         #
         ## Create misc buttons
         ## About
@@ -132,6 +142,12 @@ class RestartServicesWindow(Gtk.Window):
             print(f"Service '{service_name}' restarted successfully.")
         except subprocess.CalledProcessError as e:
             print(f"Error restarting service '{service_name}': {e.stderr.decode()}")
+
+
+    def restart_services(self, service1, service2):
+        self.on_restart_clicked(None, service1)
+        time.sleep(10)  # Espera 10 segons
+        self.on_restart_clicked(None, service2)
 
     def on_about_clicked(self, widget):
         about_dialog = AboutDialog(self)
