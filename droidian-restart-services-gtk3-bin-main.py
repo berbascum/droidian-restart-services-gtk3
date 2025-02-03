@@ -103,6 +103,11 @@ class RestartServicesWindow(Gtk.Window):
         main_vbox.pack_start(box_misc, True, True, 0)
         #
         ## Create restart services buttons
+        # Section Network services
+        separator = Gtk.Separator(orientation=Gtk.Orientation.HORIZONTAL)
+        box_services.pack_start(separator, False, True, 10)
+        label_net_dev_services = Gtk.Label(label="Network device services")
+        box_services.pack_start(label_net_dev_services, True, True, 5)
         ## ofono
         button_ofono = Gtk.Button(label="Restart ofono Service")
         button_ofono.connect("clicked", self.on_restart_clicked, "ofono")
@@ -115,14 +120,24 @@ class RestartServicesWindow(Gtk.Window):
         button_NM = Gtk.Button(label="Restart NetworkManager Service")
         button_NM.connect("clicked", self.on_restart_clicked, "NetworkManager")
         box_services.pack_start(button_NM, True, True, 0)
-        ## Bluetooth
-        button_bluetooth = Gtk.Button(label="Restart Bluetooth Service")
-        button_bluetooth.connect("clicked", self.on_restart_clicked, "bluetooth")
-        box_services.pack_start(button_bluetooth, True, True, 0)
+        # Section Multiple net dev services
+        box_services.pack_start(separator, False, True, 10)
+        label_net_dev_multi_services = Gtk.Label(label="Network device Multiple services")
+        box_services.pack_start(label_net_dev_multi_services, True, True, 5)
         ## ofono+ModemManager
         button_ofono_MM = Gtk.Button(label="Restart ofono and ModemManager Services")
         button_ofono_MM.connect("clicked", lambda w: threading.Thread(target=self.restart_services, args=("ofono", "ModemManager")).start())
         box_services.pack_start(button_ofono_MM, True, True, 0)
+
+        # Section Network services
+        #separator = Gtk.Separator(orientation=Gtk.Orientation.HORIZONTAL)
+        box_services.pack_start(separator, False, True, 5)
+        label_other_services = Gtk.Label(label="Other services")
+        box_services.pack_start(label_other_services, True, True, 5)
+        ## Bluetooth
+        button_bluetooth = Gtk.Button(label="Restart Bluetooth Service")
+        button_bluetooth.connect("clicked", self.on_restart_clicked, "bluetooth")
+        box_services.pack_start(button_bluetooth, True, True, 0)
         #
         ## Create misc buttons
         ## About
