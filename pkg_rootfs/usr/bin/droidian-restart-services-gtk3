@@ -122,6 +122,7 @@ class RestartServicesWindow(Gtk.Window):
         button_NM.connect("clicked", self.on_restart_clicked, "NetworkManager", False)
         box_services.pack_start(button_NM, True, True, 0)
         # Section Multiple net dev services
+        separator = Gtk.Separator(orientation=Gtk.Orientation.HORIZONTAL)
         box_services.pack_start(separator, False, True, 10)
         label_net_dev_multi_services = Gtk.Label(label="Network device Multiple services")
         box_services.pack_start(label_net_dev_multi_services, True, True, 5)
@@ -131,7 +132,7 @@ class RestartServicesWindow(Gtk.Window):
         box_services.pack_start(button_ofono_MM, True, True, 0)
 
         # Section VPN services
-        #separator = Gtk.Separator(orientation=Gtk.Orientation.HORIZONTAL)
+        separator = Gtk.Separator(orientation=Gtk.Orientation.HORIZONTAL)
         box_services.pack_start(separator, False, True, 10)
         label_vpn_services = Gtk.Label(label="VPN services")
         box_services.pack_start(label_vpn_services, True, True, 10)
@@ -140,7 +141,7 @@ class RestartServicesWindow(Gtk.Window):
         button_protonvpn.connect("clicked", self.on_restart_clicked, "protonvpn-phosh-monitor", True)
         box_services.pack_start(button_protonvpn, True, True, 0)
         # Section Other services
-        #separator = Gtk.Separator(orientation=Gtk.Orientation.HORIZONTAL)
+        separator = Gtk.Separator(orientation=Gtk.Orientation.HORIZONTAL)
         box_services.pack_start(separator, False, True, 5)
         label_other_services = Gtk.Label(label="Other services")
         box_services.pack_start(label_other_services, True, True, 5)
