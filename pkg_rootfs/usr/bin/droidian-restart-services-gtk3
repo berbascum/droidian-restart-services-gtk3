@@ -24,7 +24,7 @@ class AboutDialog(Gtk.Dialog):
         vbox.set_border_width(10)
         box.add(vbox)
         #
-        ## TODO: Add a logo
+        ## Add a logo
         image_path = "/usr/share/icons/Adwaita/symbolic/apps/droidian-restart-services-gtk3_48x48.png"  # Assegura't que tens un logo en aquest path
         if os.path.exists(image_path):
            pixbuf = GdkPixbuf.Pixbuf.new_from_file_at_scale(image_path, 100, 100, True)

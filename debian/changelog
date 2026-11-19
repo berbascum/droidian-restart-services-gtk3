@@ -1,6 +1,15 @@
-droidian-restart-services-gtk3 (0.0.2+git20240714153432.7d34771.testing) testing; urgency=medium
+droidian-restart-services-gtk3 (0.0.3) testing; urgency=medium
+
+  [reitia111]
+  * (7ee1904) Import GdkPixbuf for image handling in GTK3
+  * (b2636bd) Added icon in About dialog
+  * (11faa06) Fix typo in NetworkManager and add Pulseaudio button
 
   [berbascum]
+  * (a317857) (services) user: implement user services, first service protonvpn-phosh-monitor
+  * (f6e3f68) (button) services: implement labels for service groups in the GUI
+  * (182f879) (buttons) names: rename buttons to contain the service name(s)
+  * (2dbe6bc) (button) services: implement two services sequence button for ofono and ModemManager
   * (7d34771) Update README.md with installation steps 
   * (c62de56) Update pkg_rootfs files 
   * (0f92f63) Update about.txt: version string 
