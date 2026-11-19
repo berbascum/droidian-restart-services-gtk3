@@ -116,7 +116,7 @@ class RestartServicesWindow(Gtk.Window):
         button_MM = Gtk.Button(label="Restart ModemManager Service")
         button_MM.connect("clicked", self.on_restart_clicked, "ModemManager", False)
         box_services.pack_start(button_MM, True, True, 0)
-        ## MetworkManager
+        ## NetworkManager
         button_NM = Gtk.Button(label="Restart NetworkManager Service")
         button_NM.connect("clicked", self.on_restart_clicked, "NetworkManager", False)
         box_services.pack_start(button_NM, True, True, 0)
@@ -147,6 +147,10 @@ class RestartServicesWindow(Gtk.Window):
         button_bluetooth = Gtk.Button(label="Restart Bluetooth Service")
         button_bluetooth.connect("clicked", self.on_restart_clicked, "bluetooth", False)
         box_services.pack_start(button_bluetooth, True, True, 0)
+        ## Pulseaudio
+        button_pulseaudio = Gtk.Button(label="Restart Pulseaudio Service")
+        button_pulseaudio.connect("clicked", self.on_restart_clicked, "pulseaudio", True)
+        box_services.pack_start(button_pulseaudio, True, True, 0)    
         #
         ## Create misc buttons
         ## About
