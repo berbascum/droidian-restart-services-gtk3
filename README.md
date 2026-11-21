@@ -1,10 +1,10 @@
 # droidian-restart-services-gtk3
 A Simple python gtk3 apk to restart some systemd services
 
-Currenlty (v0.0.2) supports NetworkManager, ModemManager and bluetooth services.
+Currently (v0.0.3) supports NetworkManager, ModemManager, Ofono, ProtonVPN, Bluetooth and Pulseaudio services.
 
 
 ## How to use
-Can be installed using apt, just add my github apt [repo](https://github.com/berbascum/berb-apt-git-repo) and apt-get install droidian-restart-services-gtk3
+Can be downloaded from Releases, then installed through Software center or with `sudo dpkg -i droidian-restart-services-gtk3*.deb`.
 
 Then a desktop icon will appear.

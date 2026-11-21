@@ -6,7 +6,8 @@
 
 import gi
 gi.require_version('Gtk', '3.0')
-from gi.repository import Gtk, GLib
+gi.require_version("GdkPixbuf", "2.0")
+from gi.repository import Gtk, GLib, GdkPixbuf
 import subprocess
 import os
 import time
@@ -23,12 +24,12 @@ class AboutDialog(Gtk.Dialog):
         vbox.set_border_width(10)
         box.add(vbox)
         #
-        ## TODO: Add a logo
-        #image_path = "/usr/share/service_manager/logo.png"  # Assegura't que tens un logo en aquest path
-        #if os.path.exists(image_path):
-        #    pixbuf = GdkPixbuf.Pixbuf.new_from_file_at_scale(image_path, 100, 100, True)
-        #    logo = Gtk.Image.new_from_pixbuf(pixbuf)
-        #    vbox.pack_start(logo, False, False, 0)
+        ## Add a logo
+        image_path = "/usr/share/icons/Adwaita/symbolic/apps/droidian-restart-services-gtk3_48x48.png"  # Assegura't que tens un logo en aquest path
+        if os.path.exists(image_path):
+           pixbuf = GdkPixbuf.Pixbuf.new_from_file_at_scale(image_path, 100, 100, True)
+           logo = Gtk.Image.new_from_pixbuf(pixbuf)
+           vbox.pack_start(logo, False, False, 0)
         #
         ## Title
         title = Gtk.Label()
@@ -116,11 +117,12 @@ class RestartServicesWindow(Gtk.Window):
         button_MM = Gtk.Button(label="Restart ModemManager Service")
         button_MM.connect("clicked", self.on_restart_clicked, "ModemManager", False)
         box_services.pack_start(button_MM, True, True, 0)
-        ## MetworkManager
+        ## NetworkManager
         button_NM = Gtk.Button(label="Restart NetworkManager Service")
         button_NM.connect("clicked", self.on_restart_clicked, "NetworkManager", False)
         box_services.pack_start(button_NM, True, True, 0)
         # Section Multiple net dev services
+        separator = Gtk.Separator(orientation=Gtk.Orientation.HORIZONTAL)
         box_services.pack_start(separator, False, True, 10)
         label_net_dev_multi_services = Gtk.Label(label="Network device Multiple services")
         box_services.pack_start(label_net_dev_multi_services, True, True, 5)
@@ -130,7 +132,7 @@ class RestartServicesWindow(Gtk.Window):
         box_services.pack_start(button_ofono_MM, True, True, 0)
 
         # Section VPN services
-        #separator = Gtk.Separator(orientation=Gtk.Orientation.HORIZONTAL)
+        separator = Gtk.Separator(orientation=Gtk.Orientation.HORIZONTAL)
         box_services.pack_start(separator, False, True, 10)
         label_vpn_services = Gtk.Label(label="VPN services")
         box_services.pack_start(label_vpn_services, True, True, 10)
@@ -139,7 +141,7 @@ class RestartServicesWindow(Gtk.Window):
         button_protonvpn.connect("clicked", self.on_restart_clicked, "protonvpn-phosh-monitor", True)
         box_services.pack_start(button_protonvpn, True, True, 0)
         # Section Other services
-        #separator = Gtk.Separator(orientation=Gtk.Orientation.HORIZONTAL)
+        separator = Gtk.Separator(orientation=Gtk.Orientation.HORIZONTAL)
         box_services.pack_start(separator, False, True, 5)
         label_other_services = Gtk.Label(label="Other services")
         box_services.pack_start(label_other_services, True, True, 5)
@@ -147,6 +149,10 @@ class RestartServicesWindow(Gtk.Window):
         button_bluetooth = Gtk.Button(label="Restart Bluetooth Service")
         button_bluetooth.connect("clicked", self.on_restart_clicked, "bluetooth", False)
         box_services.pack_start(button_bluetooth, True, True, 0)
+        ## Pulseaudio
+        button_pulseaudio = Gtk.Button(label="Restart Pulseaudio Service")
+        button_pulseaudio.connect("clicked", self.on_restart_clicked, "pulseaudio", True)
+        box_services.pack_start(button_pulseaudio, True, True, 0)    
         #
         ## Create misc buttons
         ## About
